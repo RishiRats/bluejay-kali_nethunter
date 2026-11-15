@@ -3,3 +3,9 @@ kernel/boot.img
 kernel/vendor_dlkm.img
 kernel/dtbo.img
 fourteen/bluejay-los/Image
+
+# Host-side ADB connectivity tools
+tools/adb-connectivity/node_modules/
+tools/adb-connectivity/.venv/
+__pycache__/
+*.py[cod]

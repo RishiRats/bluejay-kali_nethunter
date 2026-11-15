@@ -1,0 +1,11 @@
+{
+  "name": "adb-apis",
+  "private": true,
+  "description": "Host-side ADB connectivity checks for Python and Node.js",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "dependencies": {
+    "@devicefarmer/adbkit": "^4.1.0"
+  }
+}
