@@ -43,6 +43,48 @@ and many more features are working
 
 ---
 
+## Build limitations
+
+This repository distributes prebuilt kernel assets; it is not a complete kernel
+source checkout. The tracked files include the kernel `Image`, DTBO, compiled
+modules, and a Magisk module archive. The kernel source tree, complete Kleaf/Bazel
+build configuration, and image-packaging workflow are not included.
+
+- There is no kernel build target in this checkout. The Node.js package under
+  `tools/adb-connectivity` also has no `build` script; it contains host-side tests.
+- Building new kernel or flashable partition images requires the matching kernel
+  sources, device configuration, toolchain, vendor/module inputs, and packaging
+  instructions for the target ROM. Cloning this repository alone is insufficient.
+- `devices.yml` is integration metadata for the external Kali NetHunter build
+  scripts, not a standalone build system.
+- `sixteen/bluejay-los/Image` is a raw kernel binary, not a replacement for
+  `patched_boot.img`. Flashable release assets are available from the
+  [upstream releases](https://github.com/RishiRats/bluejay-kali_nethunter/releases).
+- The published kernel targets LineageOS 23.2 / Android 16. Android 17 or
+  GrapheneOS compatibility is not established by ADB or Rootless userspace tests.
+
+### Available local validation
+
+After following the [ADB tool setup instructions](tools/adb-connectivity/README.md),
+run these commands from the repository root:
+
+```sh
+npm --prefix tools/adb-connectivity ci
+node --check tools/adb-connectivity/check_node_adb.cjs
+python -m py_compile tools/adb-connectivity/test_connectivity.py
+python tools/adb-connectivity/test_connectivity.py
+```
+
+These commands install the locked Node.js dependencies, check script syntax, and
+verify ADB connectivity. They do not compile a kernel, generate flashable images,
+or flash a device. The connectivity check requires at least one authorized
+Android device or emulator.
+
+**Build investigation: resolved / closed locally (2026-11-15).** Dependency
+installation and syntax checks passed, and both ADB libraries verified shell
+connectivity to a physical Pixel 6a and an emulator. No kernel build was performed
+or claimed. This note does not close an upstream GitHub issue or pull request.
+
 ## ADB connectivity check (optional)
 
 Before following the installation instructions, you can verify host-to-device ADB
