@@ -43,6 +43,23 @@ and many more features are working
 
 ---
 
+## ADB connectivity check (optional)
+
+Before following the installation instructions, you can verify host-to-device ADB
+communication with both Python and Node.js using
+[`tools/adb-connectivity`](tools/adb-connectivity/README.md).
+The checks do not flash images, reboot the device, or require root.
+
+After installing the tool's dependencies as described in its README, run from the
+repository root:
+
+```sh
+python tools/adb-connectivity/test_connectivity.py
+```
+
+A successful result confirms ADB shell connectivity only; it does not validate
+the device model, ROM, bootloader, kernel, or readiness for flashing.
+
 ## Installation
 
 > **Note:** The Pixel 6a uses dynamic partitions. The NetHunter installer zip **must** be flashed via Magisk (not TWRP). The NetHunter installer handles flashing the kernel automatically — no manual `fastboot flash boot` needed.
